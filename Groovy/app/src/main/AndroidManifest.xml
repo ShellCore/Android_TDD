@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Groovy"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:label="@string/main_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
