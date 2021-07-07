@@ -26,8 +26,8 @@ class PlaylistFragment : Fragment() {
 
         viewModel.playlist
             .observe(this as LifecycleOwner, {playlist ->
-                if (playlist.getOrNull() != null) {
-                    setupList(view, playlist.getOrNull()!!)
+                if (playlist != null) {
+                    setupList(view, playlist)
                 } else {
                     // TODO
                 }

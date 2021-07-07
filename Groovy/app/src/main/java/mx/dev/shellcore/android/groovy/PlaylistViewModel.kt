@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 class PlaylistViewModel(private val repository: PlaylistRepository): ViewModel() {
 
-    val playlist = MutableLiveData<Result<List<Playlist>>>()
+    val playlist = MutableLiveData<List<Playlist>>()
 
     init {
         viewModelScope.launch {

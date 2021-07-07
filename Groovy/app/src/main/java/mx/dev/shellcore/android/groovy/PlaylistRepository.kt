@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 class PlaylistRepository {
 
-    suspend fun getPlaylists(): Flow<Result<List<Playlist>>> {
+    suspend fun getPlaylists(): Flow<List<Playlist>> {
         TODO("Not yet implemented")
     }
 

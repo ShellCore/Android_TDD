@@ -2,6 +2,7 @@ package mx.dev.shellcore.android.groovy
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import mx.dev.shellcore.android.groovy.utils.MainCoroutineScopeRule
@@ -16,18 +17,15 @@ class PlaylistViewModelShould {
     @get:Rule val coroutinesTestRule = MainCoroutineScopeRule()
     @get:Rule val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-
     private val repository: PlaylistRepository = mock(PlaylistRepository::class.java)
     private val playlists: List<Playlist> = mock(List::class.java) as List<Playlist>
-    private val expected = Result.success(playlists)
+    private val expected = playlists
 
     @Test
     fun getPlaylistsFromRepository() = runBlockingTest {
         runBlocking {
             `when`(repository.getPlaylists()).thenReturn(
-                flow {
-                    emit(expected)
-                }
+                flow { expected }
             )
         }
         val viewModel = PlaylistViewModel(repository)
@@ -40,9 +38,7 @@ class PlaylistViewModelShould {
     fun emitsPlaylistsFromRepository() = runBlockingTest {
         runBlocking {
             `when`(repository.getPlaylists()).thenReturn(
-                flow {
-                    emit(expected)
-                }
+                flow{ emit(expected) }
             )
         }
         val viewModel = PlaylistViewModel(repository)
