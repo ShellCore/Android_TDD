@@ -1,9 +1,7 @@
-package mx.dev.shellcore.android.groovy
+package mx.dev.shellcore.android.groovy.playlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import mx.dev.shellcore.android.groovy.databinding.PlaylistItemBinding
 

@@ -1,4 +1,6 @@
-package mx.dev.shellcore.android.groovy
+package mx.dev.shellcore.android.groovy.playlist
+
+import mx.dev.shellcore.android.groovy.R
 
 data class Playlist(
     val id: String,

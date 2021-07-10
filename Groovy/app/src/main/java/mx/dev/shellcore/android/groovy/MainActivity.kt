@@ -2,6 +2,7 @@ package mx.dev.shellcore.android.groovy
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import mx.dev.shellcore.android.groovy.playlist.PlaylistFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

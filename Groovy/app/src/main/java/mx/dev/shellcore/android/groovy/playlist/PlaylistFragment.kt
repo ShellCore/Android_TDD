@@ -1,4 +1,4 @@
-package mx.dev.shellcore.android.groovy
+package mx.dev.shellcore.android.groovy.playlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import mx.dev.shellcore.android.groovy.R
 
 class PlaylistFragment : Fragment() {
 
@@ -26,8 +27,8 @@ class PlaylistFragment : Fragment() {
 
         viewModel.playlist
             .observe(this as LifecycleOwner, {playlist ->
-                if (playlist != null) {
-                    setupList(view, playlist)
+                if (playlist.getOrNull() != null) {
+                    setupList(view, playlist.getOrNull()!!)
                 } else {
                     // TODO
                 }
