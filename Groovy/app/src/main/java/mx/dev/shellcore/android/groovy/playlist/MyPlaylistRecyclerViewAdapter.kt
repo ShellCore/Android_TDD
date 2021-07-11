@@ -3,6 +3,7 @@ package mx.dev.shellcore.android.groovy.playlist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import mx.dev.shellcore.android.groovy.R
 import mx.dev.shellcore.android.groovy.databinding.PlaylistItemBinding
 
 class MyPlaylistRecyclerViewAdapter(private val values: List<Playlist>) :
@@ -23,7 +24,7 @@ class MyPlaylistRecyclerViewAdapter(private val values: List<Playlist>) :
             binding.apply {
                 playlistName.text = playlist.name
                 playlistCategory.text = playlist.category
-                playlistImage.setImageResource(playlist.image)
+                playlistImage.setImageResource(R.mipmap.playlist)
             }
         }
     }
