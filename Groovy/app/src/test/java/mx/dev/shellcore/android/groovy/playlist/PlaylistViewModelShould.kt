@@ -4,11 +4,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import mx.dev.shellcore.android.groovy.utils.BaseUnitTest
+import mx.dev.shellcore.android.groovy.utils.captureValues
 import mx.dev.shellcore.android.groovy.utils.getValueForTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.Mockito.*
-import java.lang.RuntimeException
 
 class PlaylistViewModelShould: BaseUnitTest() {
 
@@ -35,6 +35,39 @@ class PlaylistViewModelShould: BaseUnitTest() {
     fun emitErrorWhenReceiveError() {
         val viewModel = mockFailureCase()
         assertEquals(exception, viewModel.playlist.getValueForTest()!!.exceptionOrNull())
+    }
+
+    @Test
+    fun showProgressbarWhileLoading() = runBlockingTest {
+        val viewModel = mockSuccessfulCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlist.getValueForTest()
+
+            assertEquals(true, values[0])
+        }
+    }
+
+    @Test
+    fun closeLoaderAfterPlaylistsLoad() = runBlockingTest {
+        val viewModel = mockSuccessfulCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlist.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
+    }
+
+    @Test
+    fun closeLoaderAfterError() = runBlockingTest {
+        val viewModel = mockFailureCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlist.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
     }
 
     private fun mockSuccessfulCase(): PlaylistViewModel {

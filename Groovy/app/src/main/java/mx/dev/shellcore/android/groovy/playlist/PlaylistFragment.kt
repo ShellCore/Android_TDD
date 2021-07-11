@@ -10,10 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import mx.dev.shellcore.android.groovy.R
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import mx.dev.shellcore.android.groovy.databinding.FragmentPlaylistBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,21 +24,28 @@ class PlaylistFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_playlist, container, false)
+    ): View {
+        val binding = FragmentPlaylistBinding.inflate(inflater, container, false)
 
         setupViewModel()
 
+        viewModel.loader.observe(this as LifecycleOwner, { loading ->
+            when (loading) {
+                true -> binding.loader.visibility = View.VISIBLE
+                else -> binding.loader.visibility = View.GONE
+            }
+        })
+
         viewModel.playlist
-            .observe(this as LifecycleOwner, {playlist ->
+            .observe(this as LifecycleOwner, { playlist ->
                 if (playlist.getOrNull() != null) {
-                    setupList(view, playlist.getOrNull()!!)
+                    setupList(binding.playlistList, playlist.getOrNull()!!)
                 } else {
                     // TODO
                 }
             })
 
-        return view
+        return binding.root
     }
 
     private fun setupList(

@@ -7,6 +7,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.internal.matcher.DrawableMatcher.Companion.withDrawable
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.Rule
@@ -47,5 +48,16 @@ class PlaylistFeature {
                 isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlist_list), 0))))
             .check(matches(withDrawable(R.mipmap.playlist)))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun displaysLoaderWhileFetchingThePlaylists() {
+        assertDisplayed(R.id.loader)
+    }
+
+    @Test
+    fun hidesLoader() {
+        Thread.sleep(4000)
+        assertNotDisplayed(R.id.loader)
     }
 }
