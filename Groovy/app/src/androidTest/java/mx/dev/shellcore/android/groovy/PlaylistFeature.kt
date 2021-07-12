@@ -45,7 +45,7 @@ class PlaylistFeature {
         onView(
             allOf(
                 withId(R.id.playlist_image),
-                isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlist_list), 0))))
+                isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlist_list), 1))))
             .check(matches(withDrawable(R.mipmap.playlist)))
             .check(matches(isDisplayed()))
     }
@@ -59,5 +59,23 @@ class PlaylistFeature {
     fun hidesLoader() {
         Thread.sleep(4000)
         assertNotDisplayed(R.id.loader)
+    }
+
+    @Test
+    fun displayRockImageForRockListItems() {
+        Thread.sleep(4000)
+
+        onView(
+            allOf(
+                withId(R.id.playlist_image),
+                isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlist_list), 0))))
+            .check(matches(withDrawable(R.mipmap.rock)))
+            .check(matches(isDisplayed()))
+        onView(
+            allOf(
+                withId(R.id.playlist_image),
+                isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlist_list), 3))))
+            .check(matches(withDrawable(R.mipmap.rock)))
+            .check(matches(isDisplayed()))
     }
 }

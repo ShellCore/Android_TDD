@@ -24,7 +24,7 @@ class MyPlaylistRecyclerViewAdapter(private val values: List<Playlist>) :
             binding.apply {
                 playlistName.text = playlist.name
                 playlistCategory.text = playlist.category
-                playlistImage.setImageResource(R.mipmap.playlist)
+                playlistImage.setImageResource(playlist.image)
             }
         }
     }
