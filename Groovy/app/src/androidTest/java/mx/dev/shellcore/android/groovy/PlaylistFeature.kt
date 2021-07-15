@@ -2,6 +2,7 @@ package mx.dev.shellcore.android.groovy
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -29,7 +30,6 @@ class PlaylistFeature: BaseUiTest() {
 
     @Test
     fun displayListOfPlaylists() {
-
         assertRecyclerViewItemCount(R.id.playlist_list, 10)
         onView(
             allOf(
@@ -64,7 +64,6 @@ class PlaylistFeature: BaseUiTest() {
 
     @Test
     fun displayRockImageForRockListItems() {
-
         onView(
             allOf(
                 withId(R.id.playlist_image),
@@ -77,5 +76,16 @@ class PlaylistFeature: BaseUiTest() {
                 isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlist_list), 3))))
             .check(matches(withDrawable(R.mipmap.rock)))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun navigateToDetailScreen() {
+        onView(
+            allOf(
+                withId(R.id.playlist_image),
+                isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlist_list), 0))))
+            .perform(click())
+
+        assertDisplayed(R.id.playlist_detail_root)
     }
 }

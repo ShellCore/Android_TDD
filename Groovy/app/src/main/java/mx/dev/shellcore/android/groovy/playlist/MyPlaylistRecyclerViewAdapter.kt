@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import mx.dev.shellcore.android.groovy.R
 import mx.dev.shellcore.android.groovy.databinding.PlaylistItemBinding
 
-class MyPlaylistRecyclerViewAdapter(private val values: List<Playlist>) :
-    RecyclerView.Adapter<MyPlaylistRecyclerViewAdapter.ViewHolder>() {
+class MyPlaylistRecyclerViewAdapter(
+    private val values: List<Playlist>,
+    private val listener: (String) -> Unit
+) : RecyclerView.Adapter<MyPlaylistRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         PlaylistItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,6 +27,9 @@ class MyPlaylistRecyclerViewAdapter(private val values: List<Playlist>) :
                 playlistName.text = playlist.name
                 playlistCategory.text = playlist.category
                 playlistImage.setImageResource(playlist.image)
+                playlistItemRoot.setOnClickListener {
+                    listener(playlist.id)
+                }
             }
         }
     }
