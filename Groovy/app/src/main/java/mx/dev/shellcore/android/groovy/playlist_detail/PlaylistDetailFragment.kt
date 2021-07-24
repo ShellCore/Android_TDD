@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import mx.dev.shellcore.android.groovy.R
 import mx.dev.shellcore.android.groovy.databinding.FragmentPlaylistDetailBinding
 import javax.inject.Inject
 
@@ -34,17 +36,28 @@ class PlaylistDetailFragment : Fragment() {
 
         viewModel.getPlaylistDetail(id)
 
-        observeLiveData(binding)
+        observePlaylistDetail(binding)
+        observeLoader(binding)
 
         return binding.root
     }
 
-    private fun observeLiveData(binding: FragmentPlaylistDetailBinding) {
+    private fun observeLoader(binding: FragmentPlaylistDetailBinding) {
+        viewModel.loader.observe(this as LifecycleOwner, { loading ->
+            when (loading) {
+                true -> binding.playlistDetailLoader.visibility = View.VISIBLE
+                else -> binding.playlistDetailLoader.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun observePlaylistDetail(binding: FragmentPlaylistDetailBinding) {
         viewModel.playlistDetail.observe(this as LifecycleOwner) { playlistDetail ->
             if (playlistDetail.getOrNull() != null) {
                 setupContent(binding, playlistDetail.getOrNull()!!)
             } else {
-                // TODO
+                Snackbar.make(binding.root, R.string.generic_error, Snackbar.LENGTH_LONG)
+                    .show()
             }
         }
     }
