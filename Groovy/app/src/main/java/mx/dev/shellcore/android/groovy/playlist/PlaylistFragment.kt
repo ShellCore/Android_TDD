@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -30,13 +31,22 @@ class PlaylistFragment : Fragment() {
 
         setupViewModel()
 
+        observeLoader(binding)
+        observePlaylists(binding)
+
+        return binding.root
+    }
+
+    private fun observeLoader(binding: FragmentPlaylistBinding) {
         viewModel.loader.observe(this as LifecycleOwner, { loading ->
             when (loading) {
                 true -> binding.loader.visibility = View.VISIBLE
                 else -> binding.loader.visibility = View.GONE
             }
         })
+    }
 
+    private fun observePlaylists(binding: FragmentPlaylistBinding) {
         viewModel.playlist
             .observe(this as LifecycleOwner, { playlist ->
                 if (playlist.getOrNull() != null) {
@@ -45,8 +55,6 @@ class PlaylistFragment : Fragment() {
                     // TODO
                 }
             })
-
-        return binding.root
     }
 
     private fun setupList(

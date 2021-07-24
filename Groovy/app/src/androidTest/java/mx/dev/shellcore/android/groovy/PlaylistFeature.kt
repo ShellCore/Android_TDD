@@ -20,9 +20,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class PlaylistFeature: BaseUiTest() {
 
-    @get:Rule
-    var rule = ActivityScenarioRule(MainActivity::class.java)
-
     @Test
     fun displayScreenTitle() {
         assertDisplayed("Playlists")
